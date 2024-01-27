@@ -11,3 +11,5 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Javascript & CSS Static files from Public directory
+app.use(express.static('public'));
