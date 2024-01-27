@@ -18,3 +18,8 @@ app.use(express.static('public'));
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'notes.html'));
   });
+
+// Route to handle get request for root/home "/"
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
