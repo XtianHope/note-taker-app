@@ -45,3 +45,8 @@ app.post('/api/notes', (req, res) => {
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
   });
+
+// Server starter w/ callback function
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
