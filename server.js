@@ -23,3 +23,9 @@ app.get('/notes', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
+
+// Route to handle get request for api/notes from db.json
+app.get('/api/notes', (req, res) => {
+    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+    res.json(notes);
+  });
