@@ -19,7 +19,7 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'notes.html'));
   });
 
-// Route to handle get request for root/home "/"
+// Route to handle get request for root/home "/" index.html file
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
@@ -40,6 +40,16 @@ app.post('/api/notes', (req, res) => {
     fs.writeFileSync('db.json', JSON.stringify(notes));
     res.json(newNote);
   });
+
+// BONUS-Route to delete a note by ID
+// Reads notes in db.json file, filters and deletes by ID, includes sucessful deletion message
+app.delete('/api/notes/:id', (req, res) => {
+    const noteIdToDelete = req.params.id;
+    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+    const updatedNotes = notes.filter((note) => note.id !== noteIdToDelete);
+    fs.writeFileSync('db.json', JSON.stringify(updatedNotes));
+    res.json({ message: 'Note deleted successfully' });
+});
 
 // Error handling
 app.use((req, res) => {
