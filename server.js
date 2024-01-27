@@ -40,3 +40,8 @@ app.post('/api/notes', (req, res) => {
     fs.writeFileSync('db.json', JSON.stringify(notes));
     res.json(newNote);
   });
+
+// Error handling
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
