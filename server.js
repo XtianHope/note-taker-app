@@ -29,3 +29,14 @@ app.get('/api/notes', (req, res) => {
     const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
     res.json(notes);
   });
+
+// Route for handling post request for api/notes
+// Receives new notes, adds ID, saves to db.json
+app.post('/api/notes', (req, res) => {
+    const newNote = req.body;
+    newNote.id = Date.now().toString();
+    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+    notes.push(newNote);
+    fs.writeFileSync('db.json', JSON.stringify(notes));
+    res.json(newNote);
+  });
