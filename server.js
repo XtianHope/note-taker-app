@@ -26,9 +26,15 @@ app.get('/', (req, res) => {
 
 // Route to handle get request for api/notes from db.json
 app.get('/api/notes', (req, res) => {
-    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
-    res.json(notes);
-  });
+    try {
+        const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+        console.log('Retrieved notes:', notes);
+        res.json(notes);
+    } catch (error) {
+        console.error('Error reading db.json:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // Route for handling post request for api/notes
 // Receives new notes, adds ID, saves to db.json
