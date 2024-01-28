@@ -35,9 +35,9 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
     newNote.id = Date.now().toString();
-    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+    const notes = JSON.parse(fs.readFileSync('./db/db.json', 'utf8')) || [];
     notes.push(newNote);
-    fs.writeFileSync('db.json', JSON.stringify(notes));
+    fs.writeFileSync('./db/db.json', JSON.stringify(notes));
     res.json(newNote);
   });
 
@@ -45,9 +45,9 @@ app.post('/api/notes', (req, res) => {
 // Reads notes in db.json file, filters and deletes by ID, includes sucessful deletion message
 app.delete('/api/notes/:id', (req, res) => {
     const noteIdToDelete = req.params.id;
-    const notes = JSON.parse(fs.readFileSync('db.json', 'utf8')) || [];
+    const notes = JSON.parse(fs.readFileSync('./db/db.json', 'utf8')) || [];
     const updatedNotes = notes.filter((note) => note.id !== noteIdToDelete);
-    fs.writeFileSync('db.json', JSON.stringify(updatedNotes));
+    fs.writeFileSync('./db/db.json', JSON.stringify(updatedNotes));
     res.json({ message: 'Note deleted successfully' });
 });
 
